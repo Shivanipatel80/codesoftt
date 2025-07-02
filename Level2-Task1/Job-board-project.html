@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JobBoard - Find Your Dream Job</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background-color: #0052cc;
+      color: white;
+      padding: 1rem 0;
+    }
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+    nav ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .section { padding: 2rem; }
+    .center-text { text-align: center; }
+    .job-listings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .job-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .job-card button {
+      background-color: #0052cc;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    form {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    form input,
+    form textarea {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    form button {
+      background-color: #0052cc;
+      color: white;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+    }
+    .close {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <h1>JobBoard</h1>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#jobs">Jobs</a></li>
+          <li><a href="#employer">Employers</a></li>
+          <li><a href="#candidate">Candidates</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Home Welcome Section -->
+  <section id="home" class="section">
+    <div class="container center-text">
+      <h2>Welcome to JobBoard</h2>
+      <p>Your career journey starts here. Discover opportunities tailored just for you.</p>
+      <button onclick="window.location='#jobs'">Explore Jobs</button>
+    </div>
+  </section>
+
+  <!-- Job Listings Section -->
+  <section id="jobs" class="section">
+    <div class="container">
+      <h2>Available Job Openings</h2>
+      <div class="job-listings">
+        <div class="job-card">
+          <h3>Frontend Developer</h3>
+          <p><strong>Company:</strong> TechCorp</p>
+          <p><strong>Location:</strong> Remote</p>
+          <p><strong>Salary:</strong> ₹8-12 LPA</p>
+          <button onclick="showJobDetail('Frontend Developer')">View Details</button>
+        </div>
+        <div class="job-card">
+          <h3>Backend Developer</h3>
+          <p><strong>Company:</strong> CodeBase</p>
+          <p><strong>Location:</strong> Bangalore</p>
+          <p><strong>Salary:</strong> ₹10-15 LPA</p>
+          <button onclick="showJobDetail('Backend Developer')">View Details</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Job Detail Modal -->
+  <div id="job-detail-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="job-title">Job Title</h2>
+      <p><strong>Description:</strong> Details about the job role, expectations, and requirements will appear here.</p>
+      <form id="application-form">
+        <input type="text" placeholder="Your Full Name" required />
+        <input type="email" placeholder="Your Email Address" required />
+        <input type="file" required />
+        <button type="submit">Apply Now</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Employer Dashboard Section -->
+  <section id="employer" class="section">
+    <div class="container">
+      <h2>Employer Dashboard</h2>
+      <p>Post a new job listing below:</p>
+      <form id="post-job-form">
+        <input type="text" placeholder="Job Title" required />
+        <input type="text" placeholder="Company Name" required />
+        <input type="text" placeholder="Job Location" required />
+        <input type="text" placeholder="Offered Salary" required />
+        <textarea placeholder="Describe the role and requirements" required></textarea>
+        <button type="submit">Post Job</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Candidate Dashboard Section -->
+  <section id="candidate" class="section">
+    <div class="container">
+      <h2>Candidate Dashboard</h2>
+      <p>Update your profile and resume below:</p>
+      <form id="profile-form">
+        <input type="text" placeholder="Full Name" required />
+        <input type="email" placeholder="Email Address" required />
+        <input type="file" required />
+        <button type="submit">Save Profile</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container center-text">
+      <p>&copy; 2025 JobBoard. Built with dedication for your career growth.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript Code -->
+  <script>
+    function showJobDetail(title) {
+      document.getElementById('job-title').innerText = title;
+      document.getElementById('job-detail-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('job-detail-modal').style.display = 'none';
+    }
+
+    document.getElementById('application-form')?.addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Application submitted successfully!');
+      closeModal();
+    });
+
+    document.getElementById('post-job-form')?.addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Job posted successfully!');
+    });
+
+    document.getElementById('profile-form')?.addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Profile saved successfully!');
+    });
+  </script>
+</body>
+</html>
